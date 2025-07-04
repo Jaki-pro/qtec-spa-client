@@ -32,6 +32,15 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ products, onAddToCart }) 
           <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
             {product.description}
           </Typography>
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+            Category: {product.category}
+          </Typography>
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+            Rating: {product.rating} ★
+          </Typography>
+          <Typography variant="body2" color={product.inStock ? 'success.main' : 'error.main'} sx={{ mb: 2 }}>
+            {product.inStock ? 'In Stock' : 'Out of Stock'}
+          </Typography>
           <Typography variant="h6" color="primary" fontWeight={700} sx={{ mb: 2 }}>
             ${product.price.toFixed(2)}
           </Typography>
@@ -43,6 +52,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ products, onAddToCart }) 
             onClick={() => onAddToCart(product)}
             aria-label={`Add ${product.name} to cart`}
             sx={{ borderRadius: 2, py: 1.5, fontWeight: 600, fontSize: '1rem', boxShadow: 2, transition: 'all 0.2s', ':hover': { boxShadow: 4 } }}
+            disabled={!product.inStock}
           >
             Add to Cart
           </Button>

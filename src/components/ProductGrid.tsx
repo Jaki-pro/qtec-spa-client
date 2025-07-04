@@ -8,6 +8,9 @@ export interface Product {
 	price: number;
 	image: string;
 	description: string;
+	category: string;
+	rating: number;
+	inStock: boolean;
 }
 
 interface ProductGridProps {
@@ -60,6 +63,15 @@ const ProductGrid: React.FC<ProductGridProps> = ({ products, onAddToCart }) => {
 								<Typography variant="body2" color="text.secondary" sx={{ mb: 1 }} noWrap>
 									{product.description}
 								</Typography>
+								<Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
+									Category: {product.category}
+								</Typography>
+								<Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
+									Rating: {product.rating} ★
+								</Typography>
+								<Typography variant="caption" color={product.inStock ? 'success.main' : 'error.main'} sx={{ display: 'block', mb: 1 }}>
+									{product.inStock ? 'In Stock' : 'Out of Stock'}
+								</Typography>
 								<Button
 									variant="contained"
 									color="primary"
@@ -70,6 +82,7 @@ const ProductGrid: React.FC<ProductGridProps> = ({ products, onAddToCart }) => {
 									}}
 									aria-label={`Add ${product.name} to cart`}
 									sx={{ mt: 1, fontWeight: 600 }}
+									disabled={!product.inStock}
 								>
 									Add to Cart
 								</Button>
